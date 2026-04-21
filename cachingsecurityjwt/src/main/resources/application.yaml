@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cachingsecurityjwt
+
+app:
+  jwt:
+    secret: $(JWT_SECRET_ENV)
+  pepper:
+    secret: $(PEPPER_SECRET_ENV)
+  expiration:
+    access-token-exp: $(EXPIRATION_TIME_ACCESS_TOKEN_ENV)
+    refresh-token-exp: $(EXPIRATION_TIME_REFRESH_TOKEN_ENV)
