@@ -63,6 +63,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Cache -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
 		<!-- Lombok (optional) -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

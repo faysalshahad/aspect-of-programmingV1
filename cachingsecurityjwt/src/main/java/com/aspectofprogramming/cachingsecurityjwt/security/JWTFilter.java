@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,7 +26,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JWTFilter extends OncePerRequestFilter{
 
     @Autowired
-    private JWTUtil jWTUtil;
+    private JWTUtil jwtUtil;
+    
 
     @Autowired
     private UserEntityRepository userEntityRepository;
@@ -37,20 +40,20 @@ public class JWTFilter extends OncePerRequestFilter{
                if(header != null && header.startsWith("Bearer ")){
                 String token = header.substring(7);
 
-                String username = jWTUtil.getUsernameFromToken(token);
+                String username = jwtUtil.getUsernameFromToken(token);
 
                 if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
                     UserEntity user = userEntityRepository.findByUsername(username).orElse(null);
-                 if (user !=null && jWTUtil.validateToken(token)) {
+                 if (user !=null && jwtUtil.validateToken(token)) {
                     UsernamePasswordAuthenticationToken authToken = 
                     new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
                 }
                }
                filterChain.doFilter(request, response);
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
+       
     }
 
     
