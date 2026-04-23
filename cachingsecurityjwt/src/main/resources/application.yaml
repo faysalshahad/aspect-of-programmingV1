@@ -2,11 +2,28 @@ spring:
   application:
     name: cachingsecurityjwt
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aopdb1
+    username: postgres
+    password: ${DB_PASSWORD_ENV:123456}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#
+#  cache:
+#    type: redis # Explicitly tell Spring to use Redis for @Cacheable
+
+
 app:
   jwt:
-    secret: $(JWT_SECRET_ENV)
+    secret: ${JWT_SECRET_ENV:c1177cb0dee81be117e8b79c01d49bce857357b2ac259166988d4a1a1100ac294b1c1799e303ed918806232c58c63a026e8b217bb78b30176184477014891f1d}
   pepper:
-    secret: $(PEPPER_SECRET_ENV)
+    secret: ${PEPPER_SECRET_ENV:0eae636dcb7055adc1545e20e1d28f6b1f2ebffa25f2639eca54098a7f0f9c9cbbcdfd10ae3fad233bfeb4915a28451ffd729ac7e583c7c9e49f7951a1c85dd5}
   expiration:
-    access-token-exp: $(EXPIRATION_TIME_ACCESS_TOKEN_ENV)
-    refresh-token-exp: $(EXPIRATION_TIME_REFRESH_TOKEN_ENV)
+    access-token-exp: ${EXPIRATION_TIME_ACCESS_TOKEN_ENV:860000}
+    refresh-token-exp: ${EXPIRATION_TIME_REFRESH_TOKEN_ENV}

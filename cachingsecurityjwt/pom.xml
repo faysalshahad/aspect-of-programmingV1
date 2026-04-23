@@ -69,6 +69,12 @@
     		<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 
+		<!-- Redis Cache -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 		<!-- Lombok (optional) -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -89,18 +95,20 @@
         <artifactId>spring-boot-starter-aspectj</artifactId>
     </dependency>
 
-	
+		<!-- API: Compile-time dependency -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.12.7</version>
         </dependency>
+		<!-- Implementation: Runtime dependency -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.12.7</version>
             <scope>runtime</scope>
         </dependency>
+		<!-- JSON Processor: Runtime dependency -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -113,6 +121,13 @@
     		<groupId>com.google.guava</groupId>
     		<artifactId>guava</artifactId>
     		<version>33.0.0-jre</version>
+		</dependency>
+
+		<!-- To read variables/data from .env files-->
+		<dependency>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>spring-dotenv</artifactId>
+			<version>4.0.0</version>
 		</dependency>
 
 	  <!-- AOP Version for Spring Version below 4.0.0 such as 3.0.0-->

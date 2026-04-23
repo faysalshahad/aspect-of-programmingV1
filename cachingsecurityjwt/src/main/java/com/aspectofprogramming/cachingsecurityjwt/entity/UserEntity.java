@@ -3,6 +3,7 @@ package com.aspectofprogramming.cachingsecurityjwt.entity;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,9 +27,11 @@ import lombok.ToString;
 @ToString
 public class UserEntity implements UserDetails {
 
+//    private static final long serialVersionUID = 1L; // Recommended for versioning , java.io.Serializable
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true)
     private String username;
@@ -40,12 +43,12 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Return user's roles. Example:
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(this.role));
         // throw new UnsupportedOperationException("Not supported yet.");
     }
 
     // Implement other required methods
-    @Override 
+    @Override
     public String getPassword() { 
         return this.password; 
     }
@@ -61,7 +64,8 @@ public class UserEntity implements UserDetails {
     public boolean isAccountNonLocked() { 
         return true; 
     }
-    @Override 
+    @Override
+    @JsonIgnore // not going to display in Json Response
     public boolean isCredentialsNonExpired() { 
         return true; 
     }

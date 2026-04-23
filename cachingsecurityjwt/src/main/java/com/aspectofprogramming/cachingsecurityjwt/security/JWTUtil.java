@@ -23,9 +23,6 @@ public class JWTUtil {
     @Value("${app.expiration.access-token-exp}")
     private long accessTokenExpTime;
 
-    private Date todayDate = new Date();
-
-    private Date expiredDateTime = new Date(System.currentTimeMillis() + accessTokenExpTime);
 
     private Key getSigningKey(){
         byte [] keyBytes = jwtSecretKey.getBytes(StandardCharsets.UTF_8);
@@ -33,6 +30,11 @@ public class JWTUtil {
         }
 
     public String generateAccessToken(String username){
+
+        // Calculate dates locally inside the method
+         Date todayDate = new Date();
+         Date expiredDateTime = new Date(System.currentTimeMillis() + accessTokenExpTime);
+
         return Jwts
         .builder()
         .subject(username)
